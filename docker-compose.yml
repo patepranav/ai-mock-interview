@@ -1,0 +1,31 @@
+services:
+  nodelink_db:
+    image: postgres:latest
+    container_name: nodelink_db
+    environment:
+      POSTGRES_PASSWORD: adminPassword
+      POSTGRES_USER: root
+      POSTGRES_DB: test
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/database:/var/lib/postgresql/data
+    networks:
+      - ERP_NETWORK
+
+  nodelink_pgadmin4:
+    image: elestio/pgadmin
+    container_name: nodelink_pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: vrajp933@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: cj7484k1v4
+      PGADMIN_LISTEN_PORT: 8080
+    ports:
+      - 4798:8080
+    volumes:
+      - ./data/pgadmin/servers.json:/pgadmin4/servers.json
+    networks:
+      - ERP_NETWORK
+networks:
+  ERP_NETWORK:
+    driver: bridge
